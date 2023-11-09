@@ -2,13 +2,16 @@ package project.springsecurity.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
 @Entity(name = "users")
-public abstract class User implements UserDetailsService {
+public class User implements UserDetails {
 
 
     @Id
@@ -20,7 +23,35 @@ public abstract class User implements UserDetailsService {
 
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    private String role;
 
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+//    public String getAuthorities(String role) {
+//        return role;
+//    }
 }
