@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import project.springsecurity.Entity.User;
 import project.springsecurity.Repository.UserRepository;
 
+import java.util.List;
+
 @Service
 public class UserService implements UserDetailsService {
     @Autowired
@@ -15,12 +17,14 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var user = userRepository.findByUsername(username);
-        return (UserDetails)  user.getAuthorities();
-
+        return userRepository.findByUsername(username);
     }
 
     public User create(User user) {
         return userRepository.save(user);
+    }
+
+    public List<User> listAll() {
+       return userRepository.findAll();
     }
 }
